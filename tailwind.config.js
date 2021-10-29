@@ -4,7 +4,10 @@ module.exports = {
     purge: {
       enabled: true,
       content: [
-        './src/**/*.{html,ts}',
+        './src/**/*.html',
+        './src/**/*.ts',
+        './src/**/*.scss',
+        './src/**/*.css'
       ]
     },
     darkMode: 'class', // or 'media' or 'class'
