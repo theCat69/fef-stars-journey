@@ -1,1 +1,43 @@
 /* You can add global styles to this file, and also import other style files */
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+
+//base button
+button {
+    @apply m-0.5 lg:m-2 py-1 px-2 lg:py-2 lg:px-4 border border-transparent shadow-sm text-sm font-medium rounded-sm text-white relative z-10;
+}
+
+//table main css
+table {
+    @apply min-w-full divide-y divide-gray-200 bg-opacity-80 relative z-10;
+
+    thead {
+        @apply bg-gray-50 bg-opacity-90;
+    }
+    
+    th {
+        @apply px-2 py-1 lg:px-6 lg:py-3 text-left text-xs lg:text-lg font-medium text-gray-500 uppercase tracking-wider bg-opacity-90;
+    }
+    
+    tbody {
+        @apply bg-white divide-y divide-gray-200 bg-opacity-90;
+    }
+    
+    td {
+        @apply px-2 py-1 lg:px-6 lg:py-3 text-xs lg:text-base whitespace-nowrap;
+    }
+
+    .actions {
+        @apply text-right;
+    }
+
+    .delete {
+        @apply border-2 border-red-600 rounded-lg px-3 py-2 text-red-400 cursor-pointer hover:bg-red-600 hover:text-red-200;
+    }
+}
+
+body {
+    @apply w-full bg-black;
+}

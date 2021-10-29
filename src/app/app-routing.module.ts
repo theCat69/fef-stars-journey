@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule } from '@angular/router';
+import { routes } from './shared/navbar/navbar.routes'
 
-const routes: Routes = [];
+//routes actually defined in shared/navbar.routes.ts
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
+

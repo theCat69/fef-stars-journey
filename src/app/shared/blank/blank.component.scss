@@ -1,0 +1,11 @@
+.smooth-arrival {
+    animation: smooth-arrival 10s;
+}
+@keyframes smooth-arrival {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}

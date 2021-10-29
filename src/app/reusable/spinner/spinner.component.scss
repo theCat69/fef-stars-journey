@@ -1,0 +1,7 @@
+.spinner-parent {
+    @apply flex justify-center items-center;
+}
+
+.spinner {
+    @apply animate-spin rounded-full m-4 h-16 w-16 border-t-2 border-b-2 border-green-500;
+}
