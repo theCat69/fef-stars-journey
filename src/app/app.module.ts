@@ -10,6 +10,7 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
 import { BlankComponent } from './shared/blank/blank.component';
 import { LogoComponent } from './shared/logo/logo.component';
 import { GlowingBackgroundComponent } from './hompage/glowing-background/glowing-background.component';
+import { DownScrollArrowComponent } from './shared/down-scroll-arrow/down-scroll-arrow.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { GlowingBackgroundComponent } from './hompage/glowing-background/glowing
     NavbarComponent,
     BlankComponent,
     LogoComponent,
-    GlowingBackgroundComponent
+    GlowingBackgroundComponent,
+    DownScrollArrowComponent
   ],
   imports: [
     BrowserModule,

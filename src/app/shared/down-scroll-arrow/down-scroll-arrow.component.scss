@@ -1,0 +1,39 @@
+div {
+    @apply flex flex-col items-center fixed;
+    left: 50%;
+    right: 50%;
+    bottom: 60px;
+}
+
+svg {
+    @apply text-white m-0 -mb-8 md:-mb-16 xl:-mb-18 h-14 w-14 md:h-20 md:w-20 xl:h-24 xl:w-24;
+    // margin-bottom: -60px;
+    opacity: 0;
+    //animation: blink-arrow 1s alternate infinite;
+}
+
+.blinking-arrow {
+    animation: blink-arrow 5s alternate infinite;
+}
+
+.fade-arrow {
+    animation: fade-arrow 1.5s;
+}
+
+@keyframes blink-arrow  {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 0.60;
+    }
+}
+
+@keyframes fade-arrow { 
+    0% {
+        opacity: 0.4;
+    }
+    100% {
+        opacity: 0;
+    }
+}

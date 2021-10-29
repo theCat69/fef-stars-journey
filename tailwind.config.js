@@ -1,6 +1,5 @@
 module.exports = {
     prefix: '',
-    //mode: 'jit',
     purge: {
       enabled: true,
       content: [
@@ -12,7 +11,11 @@ module.exports = {
     },
     darkMode: 'class', // or 'media' or 'class'
     theme: {
-      extend: {},
+      extend: {
+        margin: {
+          '-18': '-4.5rem'
+        }
+      },
     },
     variants: {
       extend: {},
