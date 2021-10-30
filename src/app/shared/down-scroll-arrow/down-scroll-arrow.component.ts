@@ -23,8 +23,6 @@ export class DownScrollArrowComponent implements AfterViewInit {
   scrollCount = 4500;
 
   svgBlink = false;
-  svg2Blink = false;
-  svg3Blink = false;
 
   svgFade = false;
 
@@ -57,10 +55,8 @@ export class DownScrollArrowComponent implements AfterViewInit {
     //Fade out
     if(this.svgBlink && !this.svgFade && !this.stop) {
       this.svgFade = true;
-    } else if(this.svgBlink || this.svg2Blink || this.svg3Blink) {
+    } else if(this.svgBlink) {
       this.svgBlink = false;
-      this.svg2Blink = false;
-      this.svg3Blink = false;
     }
   }
 
@@ -82,22 +78,9 @@ export class DownScrollArrowComponent implements AfterViewInit {
     )
   }
 
-  //just a wait(time) async function
-  private async doTimer(n: number) {
-    return new Promise(r => {
-      setTimeout(r, n);
-    })
-  }
-
   private makeArrowsAppear() {
     this.svgFade = false;
     this.svgBlink = true;
-    this.doTimer(1000).then(() => {
-      this.svg2Blink = true;
-      this.doTimer(1000).then(() =>
-        this.svg3Blink = true 
-      )
-    })  
   }
 
   scroll() {
