@@ -1,4 +1,4 @@
-import { Component, HostListener, AfterViewInit } from '@angular/core';
+import { Component, HostListener, AfterViewInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-down-scroll-arrow',
@@ -12,7 +12,8 @@ export class DownScrollArrowComponent implements AfterViewInit {
   svg3Blink = false;
 
   svgFade = false;
-
+  
+  @Input()
   stop = false;
 
   constructor() { }
@@ -22,27 +23,15 @@ export class DownScrollArrowComponent implements AfterViewInit {
     this.doTimerForArrow()
   }
 
-  @HostListener('window:scroll', ['$event']) onScroll(event: any): void {
-    if(event.target !== null) {
-      if (event.target.scrollingElement.scrollTopMax - event.target.scrollingElement.scrollTop <= 50) {
-        this.stop = true;
-
-        this.svgBlink = false;
-        this.svg2Blink = false;
-        this.svg3Blink = false;
-      
-        this.svgFade = false;
-      
-      }
-    }
+  @HostListener('window:scroll') onScroll(): void {
     if(this.svgBlink && !this.svgFade && !this.stop) {
       this.svgFade = true;
       this.doTimerForArrow()
+    } else if(this.svgBlink || this.svg2Blink || this.svg3Blink) {
+      this.svgBlink = false;
+      this.svg2Blink = false;
+      this.svg3Blink = false;
     }
-  }
-
-  getYPosition(e: Event): number {
-    return (e.target as Element).scrollTop;
   }
 
   private delay(delay: number) {
@@ -61,14 +50,16 @@ export class DownScrollArrowComponent implements AfterViewInit {
       this.svg2Blink = false;
       this.svg3Blink = false;
       this.doTimer(5000).then(() => {
-        this.svgFade = false;
-        this.svgBlink = true;
-        this.doTimer(1000).then(() => {
-          this.svg2Blink = true;
-          this.doTimer(1000).then(() =>
-            this.svg3Blink = true 
-          )
-        })
+        if(!this.stop) {
+          this.svgFade = false;
+          this.svgBlink = true;
+          this.doTimer(1000).then(() => {
+            this.svg2Blink = true;
+            this.doTimer(1000).then(() =>
+              this.svg3Blink = true 
+            )
+          })
+        }
       })
     })
   }

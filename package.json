@@ -5,7 +5,7 @@
     "ng": "ng",
     "start": "ng serve -o",
     "build": "ng build",
-    "build:git-page": "ng build --prod",
+    "build:git-page": "ng build --base-href=/fef-stars-journey/ --output-path=docs",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },

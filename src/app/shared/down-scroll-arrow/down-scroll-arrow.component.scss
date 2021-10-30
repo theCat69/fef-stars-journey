@@ -7,9 +7,7 @@ div {
 
 svg {
     @apply text-white m-0 -mb-8 md:-mb-16 xl:-mb-18 h-14 w-14 md:h-20 md:w-20 xl:h-24 xl:w-24;
-    // margin-bottom: -60px;
     opacity: 0;
-    //animation: blink-arrow 1s alternate infinite;
 }
 
 .blinking-arrow {

@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BlankComponent implements OnInit {
   
+  stopDownArrow: boolean = false;
+
   observer: IntersectionObserver;
 
   constructor() { 
@@ -17,6 +19,9 @@ export class BlankComponent implements OnInit {
         if (entry.isIntersecting) {
           // Add the animation class
           entry.target.classList.add('smooth-arrival');
+          if(entry.target.classList.contains('text-scroll-arrival3')) {
+            this.stopDownArrow = true;
+          }
         }
       });
     });
