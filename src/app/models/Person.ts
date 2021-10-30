@@ -5,5 +5,4 @@ export class Person {
     lastName: string = "";
     firstName: string = "";
     animals: Animal[] = [];
-    //UUID id, String lastName, String firstName, List<AnimalDto> animals
 }

@@ -3,6 +3,7 @@ div {
     left: 50%;
     right: 50%;
     bottom: 60px;
+    animation: bounce-arrow 2.5s alternate infinite;
 }
 
 svg {
@@ -11,7 +12,7 @@ svg {
 }
 
 .blinking-arrow {
-    animation: blink-arrow 5s alternate infinite;
+    animation: blink-arrow 5s linear alternate infinite;
 }
 
 .fade-arrow {
@@ -33,5 +34,17 @@ svg {
     }
     100% {
         opacity: 0;
+    }
+}
+
+@keyframes bounce-arrow {
+    0%   { 
+        transform: translateY(0); 
+    }
+    50%  { 
+        transform: translateY(-2vh); 
+    }
+    100% { 
+        transform: translateY(0); 
     }
 }

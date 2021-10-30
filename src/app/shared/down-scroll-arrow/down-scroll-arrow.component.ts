@@ -19,13 +19,14 @@ export class DownScrollArrowComponent implements AfterViewInit {
   @Input()
   nextTarget = "";
 
+  @Input()
+  scrollCount = 4500;
+
   svgBlink = false;
   svg2Blink = false;
   svg3Blink = false;
 
   svgFade = false;
-
-  scrollNotifier = false;
 
   scrollTimer: Observable<number> = new Observable<number>();
   
@@ -69,7 +70,7 @@ export class DownScrollArrowComponent implements AfterViewInit {
   }
 
   private setScrollTimerAndSubscribe() {
-    this.scrollTimer = interval(4500).pipe(takeUntil(this.notifier));
+    this.scrollTimer = interval(this.scrollCount).pipe(takeUntil(this.notifier));
     this.scrollTimer.subscribe(
       () => this.makeArrowsAppear(),
       (e) => console.log(e),
