@@ -1,5 +1,5 @@
 div {
-    @apply flex flex-col items-center fixed;
+    @apply flex flex-col items-center fixed bg-opacity-0 z-10;
     left: 50%;
     right: 50%;
     bottom: 60px;

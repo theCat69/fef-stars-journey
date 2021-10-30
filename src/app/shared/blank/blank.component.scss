@@ -1,3 +1,11 @@
+p {
+    @apply text-white text-opacity-50 text-xl sm:text-3xl xl:text-6xl my-96 z-10;
+}
+
+div {
+    @apply flex justify-center bg-transparent;
+}
+
 .smooth-arrival {
     animation: smooth-arrival 10s;
 }

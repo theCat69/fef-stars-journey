@@ -1,4 +1,6 @@
 import { Component, HostListener, AfterViewInit, Input } from '@angular/core';
+import { interval, Observable, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-down-scroll-arrow',
@@ -6,27 +8,54 @@ import { Component, HostListener, AfterViewInit, Input } from '@angular/core';
   styleUrls: ['./down-scroll-arrow.component.scss']
 })
 export class DownScrollArrowComponent implements AfterViewInit {
+  
+  @Input()
+  stop = false;
+
+  @Input()
+  notifier = new Subject();
+  notifierCompleted = false;
+
+  @Input()
+  nextTarget = "";
 
   svgBlink = false;
   svg2Blink = false;
   svg3Blink = false;
 
   svgFade = false;
-  
-  @Input()
-  stop = false;
 
+  scrollNotifier = false;
+
+  scrollTimer: Observable<number> = new Observable<number>();
+  
   constructor() { }
 
   ngAfterViewInit(): void {
-    // console.log(this.svg);
-    this.doTimerForArrow()
+    this.setScrollTimerAndSubscribe();
+    // just to know it was completed to end the infinite timer loop
+    this.notifier.subscribe(
+        () => null,
+        (e) => console.log(e),
+        () => this.notifierCompleted = true
+    )
   }
 
   @HostListener('window:scroll') onScroll(): void {
+    //Completing by subject or boolean
+    if(this.stop && !this.notifierCompleted) {
+      this.notifier.next();
+      this.notifier.complete();
+    } else if (!this.stop && this.notifierCompleted) {
+      this.stop = true;
+    }
+    //reset timer any time you scroll
+    if(!this.stop) {
+      this.resetScrollTimerAndSubscibe();
+    }
+    //Fade out
     if(this.svgBlink && !this.svgFade && !this.stop) {
       this.svgFade = true;
-      this.doTimerForArrow()
     } else if(this.svgBlink || this.svg2Blink || this.svg3Blink) {
       this.svgBlink = false;
       this.svg2Blink = false;
@@ -34,34 +63,49 @@ export class DownScrollArrowComponent implements AfterViewInit {
     }
   }
 
-  private delay(delay: number) {
-    return new Promise(r => {
-        setTimeout(r, delay);
-    })
+  private resetScrollTimerAndSubscibe() {
+    this.notifier.next();
+    this.setScrollTimerAndSubscribe();
   }
 
-  async doTimer(n: number) {
-    await this.delay(n); 
-  }
-
-  doTimerForArrow() {
-    this.doTimer(3000).then(() => {
-      this.svgBlink = false;
-      this.svg2Blink = false;
-      this.svg3Blink = false;
-      this.doTimer(5000).then(() => {
-        if(!this.stop) {
-          this.svgFade = false;
-          this.svgBlink = true;
-          this.doTimer(1000).then(() => {
-            this.svg2Blink = true;
-            this.doTimer(1000).then(() =>
-              this.svg3Blink = true 
-            )
-          })
+  private setScrollTimerAndSubscribe() {
+    this.scrollTimer = interval(4500).pipe(takeUntil(this.notifier));
+    this.scrollTimer.subscribe(
+      () => this.makeArrowsAppear(),
+      (e) => console.log(e),
+      () => {
+        if(this.svgBlink) {
+          this.svgFade = true;
         }
-      })
+      }
+    )
+  }
+
+  //just a wait(time) async function
+  private async doTimer(n: number) {
+    return new Promise(r => {
+      setTimeout(r, n);
     })
+  }
+
+  private makeArrowsAppear() {
+    this.svgFade = false;
+    this.svgBlink = true;
+    this.doTimer(1000).then(() => {
+      this.svg2Blink = true;
+      this.doTimer(1000).then(() =>
+        this.svg3Blink = true 
+      )
+    })  
+  }
+
+  scroll() {
+    if(this.svgBlink) {
+      const el = document.getElementById(this.nextTarget);
+      if(el !== null) {
+        el.scrollIntoView({block: 'center', behavior: 'smooth'});
+      }
+    }
   }
 }
 

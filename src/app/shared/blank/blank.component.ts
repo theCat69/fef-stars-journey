@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class BlankComponent implements OnInit {
   
   stopDownArrow: boolean = false;
+  nextTargetForArrow = "text-scroll-arrival";
 
   observer: IntersectionObserver;
 
@@ -19,7 +20,13 @@ export class BlankComponent implements OnInit {
         if (entry.isIntersecting) {
           // Add the animation class
           entry.target.classList.add('smooth-arrival');
-          if(entry.target.classList.contains('text-scroll-arrival3')) {
+          if(entry.target.id === 'text-scroll-arrival') {
+            this.nextTargetForArrow = "text-scroll-arrival2";
+          }
+          if(entry.target.id === 'text-scroll-arrival2'){
+            this.nextTargetForArrow = "text-scroll-arrival3";
+          }
+          if(entry.target.id === 'text-scroll-arrival3') {
             this.stopDownArrow = true;
           }
         }
@@ -30,15 +37,15 @@ export class BlankComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    let el = document.querySelector('.text-scroll-arrival');
+    let el = document.getElementById('text-scroll-arrival');
     if(el !== null) {
       this.observer.observe(el);
     }
-    let el2 = document.querySelector('.text-scroll-arrival2');
+    let el2 = document.getElementById('text-scroll-arrival2');
     if(el2 !== null) {
       this.observer.observe(el2);
     }   
-    let el3 = document.querySelector('.text-scroll-arrival3');
+    let el3 = document.getElementById('text-scroll-arrival3');
     if(el3 !== null) {
       this.observer.observe(el3);
     }
